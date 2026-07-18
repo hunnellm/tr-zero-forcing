@@ -1,4 +1,4 @@
-name: Build and deploy PDF to GitHub Pages
+name: Build and deploy PDF to GitHub Pages (gh-pages)
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,13 +22,14 @@ jobs:
         with:
           root_file: main.tex
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v3
+      - name: Prepare site directory
+        run: |
+          mkdir -p site
+          cp main.pdf site/
+          printf "%s" "<meta http-equiv='refresh' content='0; url=main.pdf' />" > site/index.html
 
-      - name: Upload PDF artifact for Pages
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: main.pdf
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
