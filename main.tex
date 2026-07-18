@@ -283,18 +283,19 @@ Z(G)=\min\{\abs{B}: B\subseteq V,\ B \text{ is a zero forcing set}\}.
 \column{0.56\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.88, every node/.style={font=\scriptsize}]
-  \node[zfblack] (r) at (0,0) {$r$};
+  \node[zfwhite] (r) at (0,0) {$r$};
   \node[zfwhite] (a) at (-1.4,1.2) {$a$};
   \node[zfblack] (b) at (1.4,1.2) {$b$};
-  \node[zfwhite] (c) at (-2.2,2.4) {$c$};
-  \node[zfwhite] (d) at (-0.6,2.4) {$d$};
+  \node[zfblack] (c) at (-2.2,2.4) {$c$};
+  \node[zfblack] (d) at (-0.6,2.4) {$d$};
   \node[zfwhite] (e) at (0.6,2.4) {$e$};
   \node[zfwhite] (f) at (2.2,2.4) {$f$};
   \draw (r)--(a)--(c);
   \draw (a)--(d);
   \draw (r)--(b)--(e);
   \draw (b)--(f);
-  \draw[zfforce] (1.0,0.55) -- (0.25,0.15);
+  \draw[zfforce] (-1.25,0.65) -- (-0.65,0.0);
+  \draw[zfforce] (-2.1,1.9) -- (-1.8,1.4);
 \end{tikzpicture}
 
 \column{0.44\textwidth}
