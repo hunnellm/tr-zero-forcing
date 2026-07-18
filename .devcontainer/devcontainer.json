@@ -1,0 +1,11 @@
+{
+  "name": "LaTeX Environment",
+  "image": "ghcr.io/willfantom/devcontainer-latex:latest-basic",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop"
+      ]
+    }
+  }
+}
