@@ -1,0 +1,135 @@
+\documentclass{article}
+
+\makeatletter
+\def\moverlay{\mathpalette\mov@rlay}
+\def\mov@rlay#1#2{\leavevmode\vtop{%
+   \baselineskip\z@skip \lineskiplimit-\maxdimen
+   \ialign{\hfil$\m@th#1##$\hfil\cr#2\crcr}}}
+\newcommand{\charfusion}[3][\mathord]{
+    #1{\ifx#1\mathop\vphantom{#2}\fi
+        \mathpalette\mov@rlay{#2\cr#3}
+      }
+    \ifx#1\mathop\expandafter\displaylimits\fi}
+\makeatother
+
+\newcommand{\cupdot}{\charfusion[\mathbin]{\cup}{\cdot}}
+\newcommand{\bigcupdot}{\charfusion[\mathop]{\bigcup}{\cdot}}
+
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+
+\usepackage[top=1.5in, left=1in, right=1in, bottom=1in]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage{amsmath,amsthm,verbatim,amssymb,amsfonts,amscd}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{systeme}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{scrextend}
+\usepackage{lineno}
+\usepackage{cleveref}
+\usepackage[symbol]{footmisc}
+\usepackage{soul}
+
+
+\newtheorem{theorem}{Theorem}[subsection]
+\numberwithin{theorem}{subsection}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{claim}{Claim}
+\newtheorem{case}{Case}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{subcase}{Sub-Case}[case]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\DeclareMathOperator{\p}{P}
+\DeclareMathOperator{\Z}{Z}
+\DeclareMathOperator{\C}{C}
+\DeclareMathOperator{\F}{F}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\ct}{ct}
+\DeclareMathOperator{\act}{act}
+\DeclareMathOperator{\Term}{Term}
+\DeclareMathOperator{\PIP}{PIP}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{subcaption} 
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{ulem,cleveref}
+
+\tikzset{vertex/.style={black,fill,draw,minimum size=6pt,inner sep=0pt,circle,thin},wvertex/.style={black,draw,minimum size=6pt,inner sep=0pt,circle,thin},bold/.style={black,line width=0.6mm},plain/.style={black,thin},bold edges/.style=bold,plain edges/.style=plain,label distance=1mm,text node/.style={rectangle,fill=none,draw=none},every label/.style=text node,caption node/.style={text node}}
+
+
+
+\usetikzlibrary{calc}
+\tikzset{bzf/.style={circle, draw, fill=blue!30}, minimum size=2pt}
+\tikzset{wzf/.style={circle, draw}}
+\tikzstyle{vertex}=[circle, draw, inner sep=0pt, minimum size=4pt,fill=black]
+\newcommand{\vertex}{\node[vertex]}
+\tikzstyle{whitevertex}=[circle, draw, inner sep=0pt, minimum size=4pt,fill=white]
+\tikzstyle{bluevertex}=[circle, draw, inner sep=0pt, minimum size=4pt,fill=black]
+\newcommand{\whitevertex}{\node[whitevertex]}
+\tikzstyle{hollowvertex}=[circle, draw, inner sep=1pt, minimum size=4pt, fill=white]
+\newcommand{\hollowvertex}{\node[hollowvertex]}
+\tikzstyle{phantomvertex}=[circle, draw, inner sep=0pt, minimum size=4pt,color=white]
+\newcommand{\phantomvertex}{\node[phantomvertex]}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\tikzset{
+  .../.tip={[sep=2pt 2]
+    Round Cap[]. Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2, sep=2pt 2]}}
+\tikzset{
+  .../.tip={[sep=2pt 2]
+    Round Cap[]. Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2, sep=2pt 2]}}
+\tikzset{
+      ellipsis/.tip={
+Square[length=2pt,sep=0pt,color=white] Circle[length=1pt,sep=0pt,color=black] Square[length=1pt,sep=0pt,color=white]
+Circle[length=1pt,sep=0pt,color=black] Square[length=1pt,sep=0pt,color=white]
+Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
+\tikzset{middlearrow/.style n args={2}{
+        decoration={markings,
+            mark= at position {#2} with {\arrow{#1}} ,
+        },
+        postaction={decorate}
+    }
+}
+\usetikzlibrary{positioning}
+
+
+
+\DeclareMathOperator{\dfpt}{dfpt}
+
+\DeclareMathOperator{\ifpt}{ifpt}
+\DeclareMathOperator{\fpt}{fpt}
+
+\newcommand{\degre}{\ensuremath{^\circ}}
+\definecolor{qqwuqq}{rgb}{0,0.39215686274509803,0}
+\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+
+\title{$(t,r)$ Zero Forcing}
+\author{Leader: Mark Hunnell}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+
+\end{document}
