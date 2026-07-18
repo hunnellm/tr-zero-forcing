@@ -18,7 +18,7 @@
 \newcommand{\abs}[1]{\left\vert#1\right\vert}
 
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.15}
+\pgfplotsset{compat=1.17}
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 
@@ -50,10 +50,9 @@
 \DeclareMathOperator{\PIP}{PIP}
 
 \usepackage{tikz}
-\usetikzlibrary{calc}
 \usepackage{float}
 \usepackage{indentfirst}
-\usepackage{ulem,cleveref}
+\usepackage{ulem}
 
 % -------- Layout visibility tuning --------
 \setbeamersize{text margin left=0.7cm, text margin right=0.7cm}
@@ -73,20 +72,9 @@
   plain/.style={black,line width=0.2mm}
 }
 
-\usetikzlibrary{calc}
-\tikzset{bzf/.style={circle, draw, fill=blue!30}, minimum size=2pt}
+\tikzset{bzf/.style={circle, draw, fill=blue!30, minimum size=2pt}}
 \tikzset{wzf/.style={circle, draw}}
-\tikzstyle{vertex}=[circle, draw, inner sep=0pt, minimum size=4pt,fill=zfLightBlue]
-\newcommand{\vertex}{\node[vertex]}
-\tikzstyle{whitevertex}=[circle, draw, inner sep=0pt, minimum size=4pt,fill=white]
-\tikzstyle{bluevertex}=[circle, draw, inner sep=0pt, minimum size=4pt,fill=zfLightBlue]
-\newcommand{\whitevertex}{\node[whitevertex]}
-\tikzstyle{hollowvertex}=[circle, draw, inner sep=1pt, minimum size=4pt, fill=white]
-\newcommand{\hollowvertex}{\node[hollowvertex]}
-\tikzstyle{phantomvertex}=[circle, draw, inner sep=0pt, minimum size=4pt,color=white]
-\newcommand{\phantomvertex}{\node[phantomvertex]}
-\usetikzlibrary{backgrounds}
-\usetikzlibrary{arrows.meta}
+\usetikzlibrary{backgrounds,arrows.meta,positioning}
 \tikzset{
   .../.tip={[sep=2pt 2]
     Round Cap[]. Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2, sep=2pt 2]}}
@@ -128,7 +116,7 @@ Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
 \begin{frame}
 \frametitle{About Me}
 \begin{center}
-\fbox{\includegraphics[width=\textwidth]{images/fam}}
+\fbox{\includegraphics[width=0.84\linewidth]{images/fam}}
 \end{center}
 \end{frame}
 
@@ -137,17 +125,17 @@ Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
 \begin{columns}
 \begin{column}{0.3\textwidth}
 \begin{center}
-\fbox{\includegraphics[width=\textwidth]{images/winnie}}
+\fbox{\includegraphics[width=0.90\linewidth]{images/winnie}}
 \end{center}
 \end{column}
 \begin{column}{0.3\textwidth}
 \begin{center}
-\fbox{\includegraphics[width=\textwidth]{images/bob}}
+\fbox{\includegraphics[width=0.90\linewidth]{images/bob}}
 \end{center}
 \end{column}
 \begin{column}{0.3\textwidth}
 \begin{center}
-\fbox{\includegraphics[width=\textwidth]{images/herm}}
+\fbox{\includegraphics[width=0.90\linewidth]{images/herm}}
 \end{center}
 \end{column}
 \end{columns}
@@ -159,14 +147,14 @@ Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
 \begin{columns}
 \begin{column}{0.45\textwidth}
 \begin{center}
-\fbox{\includegraphics[width=.6\textwidth,angle=0]{images/hap1}}\\
-\fbox{\includegraphics[width=.6\textwidth,angle=0]{images/hap4}}
+\fbox{\includegraphics[width=.58\linewidth,angle=0]{images/hap1}}\\
+\fbox{\includegraphics[width=.58\linewidth,angle=0]{images/hap4}}
 \end{center}
 \end{column}
 \begin{column}{0.45\textwidth}
 \begin{center}
-\fbox{\includegraphics[width=.6\textwidth,angle=0]{images/hap2}}\\
-\fbox{\includegraphics[width=.6\textwidth,angle=0]{images/hap3}}
+\fbox{\includegraphics[width=.58\linewidth,angle=0]{images/hap2}}\\
+\fbox{\includegraphics[width=.58\linewidth,angle=0]{images/hap3}}
 \end{center}
 \end{column}
 \end{columns}
@@ -406,7 +394,7 @@ We will study simple graphs.  i.e.
 \end{block}
 \end{column}
 \begin{column}{0.65\textwidth}
-\fbox{\includegraphics[width=\textwidth]{images/media2}}
+\fbox{\includegraphics[width=0.95\linewidth]{images/media2}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -425,7 +413,7 @@ We will study simple graphs.  i.e.
 
 \begin{column}{0.45\textwidth}
 \begin{center}
-\fbox{\includegraphics[width=\textwidth]{images/media1}}
+\fbox{\includegraphics[width=0.95\linewidth]{images/media1}}
 \end{center}
 \end{column}
 \end{columns}
@@ -443,7 +431,7 @@ We will study simple graphs.  i.e.
 \end{block}
 \end{column}
 \begin{column}{0.65\textwidth}
-\fbox{\includegraphics[width=\textwidth]{images/internet1}}
+\fbox{\includegraphics[width=0.95\linewidth]{images/internet1}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -460,7 +448,7 @@ We will study simple graphs.  i.e.
 \end{block}
 \end{column}
 \begin{column}{0.65\textwidth}
-\fbox{\includegraphics[width=\textwidth]{images/chem1}}
+\fbox{\includegraphics[width=0.95\linewidth]{images/chem1}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -477,7 +465,7 @@ We will study simple graphs.  i.e.
 \end{block}
 \end{column}
 \begin{column}{0.65\textwidth}
-\fbox{\includegraphics[width=\textwidth]{images/chem2}}
+\fbox{\includegraphics[width=0.95\linewidth]{images/chem2}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -494,7 +482,7 @@ We will study simple graphs.  i.e.
 \end{block}
 \end{column}
 \begin{column}{0.65\textwidth}
-\fbox{\includegraphics[width=\textwidth]{images/electric2}}
+\fbox{\includegraphics[width=0.95\linewidth]{images/electric2}}
 \end{column}
 \end{columns}
 \end{frame}
@@ -533,14 +521,15 @@ We will study simple graphs.  i.e.
 \end{block}
 \end{column}
 \begin{column}{0.45\textwidth}
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{l l }
 \centering
-\fbox{\includegraphics[width=.5\textwidth]{images/post}} & \fbox{\includegraphics[width=0.5\textwidth]{images/spp} }
+\fbox{\includegraphics[width=.40\linewidth]{images/post}} & \fbox{\includegraphics[width=.40\linewidth]{images/spp} }
 \end{tabular}
 \end{column}
 \end{columns}
 \begin{center}
-\fbox{\includegraphics[width=.6\textwidth]{images/zf}}
+\fbox{\includegraphics[width=.50\linewidth]{images/zf}}
 \end{center}
 \end{frame}
 
@@ -557,7 +546,7 @@ Visit all the nodes of a graph and return home as quickly as possible.
 %    \end{column}
 \end{columns}
 \begin{center}
-\fbox{\includegraphics[width = 0.5\textwidth]{images/TSP3}}
+\fbox{\includegraphics[width = 0.45\linewidth]{images/TSP3}}
 \end{center}
 \end{frame}
 
@@ -576,7 +565,7 @@ Visit all the nodes of a graph and return home as quickly as possible.
 \end{block}
 \end{column}
 \begin{column}{0.45\textwidth}
-\href{https://tspvis.com/}{\fbox{\includegraphics[width = 0.9\textwidth]{images/TSP3}}}
+\href{https://tspvis.com/}{\fbox{\includegraphics[width = 0.88\linewidth]{images/TSP3}}}
 \end{column}
 \end{columns}
 \end{frame}
