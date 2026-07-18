@@ -5,19 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>(t,r) Zero Forcing — Reveal.js</title>
 
-  <!-- Reveal.js core styles -->
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.4.0/dist/reveal.css">
-  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.4.0/dist/theme/black.css" id="theme">
+  <!-- Reveal.js core styles (vendored) -->
+  <link rel="stylesheet" href="vendor/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="vendor/revealjs/dist/theme/black.css" id="theme">
 
-  <!-- KaTeX for math -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <!-- KaTeX for math (vendored) -->
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <style>
+    /* Page and slide background + default text color */
+    body, .reveal { background-color: #e6f7ff; color: #000; }
     .slide-img { max-width: 90%; height: auto; border: 1px solid #ddd; padding: 4px; }
-    .two-cols { display:flex; gap:1rem; align-items:flex-start; }
-    .two-cols img { width:48%; }
+    /* Two-column layout: keep left/right flow and allow wrapping on small screens */
+    .two-cols { display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap; width:100%; }
+    .two-cols > * { flex:1 1 48%; }
+    .two-cols img { width:100%; height:auto; object-fit:contain; }
     .center { text-align:center; }
     .small { font-size:0.9rem; }
+    /* Do not override Reveal.js interactive layout. Provide static fallback only when Reveal is unavailable by adding `no-reveal` to the body. */
+    .no-reveal .reveal { display:block; padding: 1rem; }
+    .no-reveal .reveal .slides { display:block; }
+    .no-reveal .reveal .slides section { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem; position:static; margin:1.25rem 0; }
+    .no-reveal .reveal .slides section h1, .no-reveal .reveal .slides section h2 { margin-top: 0.25rem; }
   </style>
+  <style>
+    /* Force headings and controls to be dark so they show on the light-blue background */
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 { color: #000 !important; }
+    .reveal .controls, .reveal .controls button, .reveal .controls svg { color: #000 !important; fill: #000 !important; }
+    .reveal .controls { z-index: 9999; }
+  </style>
+  <style>
+    /* Ensure images scale to fit the slide viewport */
+    .reveal .slides img { max-width: 100% !important; width: auto !important; max-height: 70vh !important; height: auto !important; display:block; margin:0.5rem auto; }
+    /* Also override any inline width attributes so paired images fit */
+    .reveal .slides img[style] { max-width: 100% !important; width: auto !important; max-height: 70vh !important; }
+    /* Keep two-column items top-aligned so images don't push content down */
+    .two-cols { align-items:flex-start; }
+    .two-cols > * { flex:1 1 48%; min-width:180px; }
+    /* Small adjustments so slide content is vertically centered inside reveal frames */
+    .reveal .slides section { box-sizing:border-box; padding:1.75rem; }
+  </style>
+  <!-- Static fallback styles: ensure slides are readable when remote CSS is blocked -->
+  <!-- (kept for backwards-compat) static styles moved above and scoped to .no-reveal -->
 </head>
 <body>
   <div class="reveal">
@@ -221,15 +249,32 @@
   </div>
 
   <!-- Reveal.js and plugins -->
-  <script src="https://unpkg.com/reveal.js@4.4.0/dist/reveal.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
-  <script src="https://unpkg.com/reveal.js@4.4.0/dist/plugin/math/math.js"></script>
+  <script src="vendor/revealjs/dist/reveal.js"></script>
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/contrib.auto-render.min.js"></script>
+  <script src="vendor/revealjs/dist/plugin/math/math.js"></script>
   <script>
-    Reveal.initialize({
-      hash: true,
-      slideNumber: true,
-      plugins: [ RevealMath ]
-    });
+    if (window.Reveal && typeof Reveal.initialize === 'function') {
+      Reveal.initialize({
+        hash: true,
+        slideNumber: true,
+        plugins: [ typeof RevealMath !== 'undefined' ? RevealMath : undefined ].filter(Boolean)
+      });
+      // Ensure KaTeX renders math inside slides after Reveal initializes
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.querySelector('.reveal'), {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    } else {
+      console.warn('Reveal.js not available — using static fallback view.');
+      // Add a class to enable scoped static fallback styles without shifting layout
+      document.body.classList.add('no-reveal');
+    }
   </script>
 </body>
 </html>
