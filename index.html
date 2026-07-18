@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>(t,r) Zero Forcing — Reveal.js</title>
+
+  <!-- Reveal.js core styles -->
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.4.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.4.0/dist/theme/black.css" id="theme">
+
+  <!-- KaTeX for math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+  <style>
+    .slide-img { max-width: 90%; height: auto; border: 1px solid #ddd; padding: 4px; }
+    .two-cols { display:flex; gap:1rem; align-items:flex-start; }
+    .two-cols img { width:48%; }
+    .center { text-align:center; }
+    .small { font-size:0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <h1>(t,r) Zero Forcing</h1>
+        <p>Mark Hunnell</p>
+        <p class="small">June 2026</p>
+      </section>
+
+      <section>
+        <h2>About Me</h2>
+        <p class="center"><img class="slide-img" src="images/fam.jpg" alt="family"></p>
+      </section>
+
+      <section>
+        <h2>About Me</h2>
+        <div class="two-cols">
+          <img src="images/winnie.JPG" alt="winnie">
+          <img src="images/bob.jpeg" alt="bob">
+        </div>
+        <p class="center"><img class="slide-img" src="images/herm.jpeg" alt="herm" style="max-width:40%"></p>
+      </section>
+
+      <section>
+        <h2>About Me</h2>
+        <div class="two-cols">
+          <img src="images/hap1.jpeg" alt="hap1">
+          <img src="images/hap2.jpeg" alt="hap2">
+        </div>
+      </section>
+
+      <section>
+        <h2>What we're here to talk about</h2>
+        <h1>Math Stuff!</h1>
+      </section>
+
+      <section>
+        <h2>Graphs</h2>
+        <p>We will study simple graphs: collections of vertices and edges.</p>
+        <div class="two-cols">
+          <img src="images/Zero Forcing.png" alt="graph sketch">
+          <img src="images/tree.jpeg" alt="tree">
+        </div>
+      </section>
+
+      <section>
+        <h2>Why does anyone care about graphs?</h2>
+        <div class="two-cols">
+          <div>
+            <h3>Social Media</h3>
+            <ul>
+              <li>Nodes are people or items shared</li>
+              <li>Edges are <strong>follows</strong> or <strong>interactions</strong></li>
+            </ul>
+          </div>
+          <img src="images/media2.png" alt="media">
+        </div>
+      </section>
+
+      <section>
+        <h2>Why does anyone care about graphs?</h2>
+        <div class="two-cols">
+          <div>
+            <h3>Internet Networks</h3>
+            <ul>
+              <li>Nodes are server locations</li>
+              <li>Edges are cables connecting them</li>
+            </ul>
+          </div>
+          <img src="images/internet1.png" alt="internet">
+        </div>
+      </section>
+
+      <section>
+        <h2>Why does anyone care about graphs?</h2>
+        <div class="two-cols">
+          <div>
+            <h3>Chemistry</h3>
+            <ul>
+              <li>Nodes are atoms</li>
+              <li>Edges are bonds</li>
+            </ul>
+          </div>
+          <img src="images/chem1.png" alt="chem1">
+        </div>
+      </section>
+
+      <section>
+        <h2>Some important questions</h2>
+        <div class="two-cols">
+          <div>
+            <h3>Problems to answer</h3>
+            <ul>
+              <li>Shortest path</li>
+              <li>Graph coloring problems</li>
+              <li>Postman problem</li>
+              <li>Zero forcing</li>
+            </ul>
+          </div>
+          <div>
+            <div class="center">
+              <img src="images/post.png" alt="post" style="width:48%">
+              <img src="images/spp.png" alt="spp" style="width:48%">
+            </div>
+          </div>
+        </div>
+        <p class="center"><img class="slide-img" src="images/zf.png" alt="zero forcing"></p>
+      </section>
+
+      <section>
+        <h2>Traveling Salesman Problem</h2>
+        <p>Visit all the nodes of a graph and return home as quickly as possible.</p>
+        <p class="center"><img class="slide-img" src="images/TSP3.png" alt="tsp"></p>
+      </section>
+
+      <section>
+        <h2>Demonstration</h2>
+        <div class="two-cols">
+          <div>
+            <h3>Other Applications</h3>
+            <ul>
+              <li>DNA sequencing</li>
+              <li>Covid transmission</li>
+              <li>Agriculture</li>
+              <li>Sales</li>
+            </ul>
+          </div>
+          <div class="center">
+            <a href="https://tspvis.com/"><img class="slide-img" src="images/TSP3.png" alt="tspvis"></a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Standard Zero Forcing: Core Idea</h2>
+        <p>Let $G=(V,E)$ be a simple graph.</p>
+        <ul>
+          <li>Each vertex is colored either light-blue (active) or white (inactive).</li>
+          <li>Start with an initial active set $B_0\subseteq V$.</li>
+          <li>Apply the color-change rule repeatedly.</li>
+        </ul>
+        <p><strong>Color-change rule:</strong> If an active vertex $u$ has exactly one white neighbor $v$, then $u$ forces $v$ to become active. We write $u\to v$.</p>
+      </section>
+
+      <section>
+        <h2>Process and Terminology</h2>
+        <ul>
+          <li>A sequence of valid forces is a <em>forcing process</em>.</li>
+          <li>If every vertex eventually becomes active, then $B_0$ is a <em>zero forcing set</em>.</li>
+        </ul>
+        <p class="small">The minimum size of such a set is the zero forcing number:</p>
+        <p class="center">$$Z(G)=\min\{\lvert B\rvert: B\subseteq V,\ B \text{ is a zero forcing set}\}.$$</p>
+      </section>
+
+      <section>
+        <h2>Animated Example on the Path $P_5$</h2>
+        <p class="small">(static version)</p>
+        <p class="center"><img src="images/zf.png" alt="path example" style="max-width:60%"></p>
+        <p class="center small">All vertices are active, so $\{1\}$ is a zero forcing set for $P_5$.</p>
+      </section>
+
+      <section>
+        <h2>Why the Path Example Works</h2>
+        <div class="two-cols">
+          <div>
+            <ul>
+              <li>Start with one active endpoint.</li>
+              <li>At each step, the current frontier vertex has exactly one white neighbor.</li>
+              <li>This keeps creating the next valid force.</li>
+            </ul>
+            <p>$$1\to2\to3\to4\to5$$</p>
+          </div>
+          <div class="center">
+            <img src="images/zf.png" alt="path" style="width:60%">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Cycle With a Chord: Not Every Move is Legal</h2>
+        <p>Blocked vs forceable states — unique-white-neighbor requirement matters.</p>
+      </section>
+
+      <section>
+        <h2>Tree Example: Initial Choice Matters</h2>
+        <p>Strategic initial placement is the heart of zero forcing.</p>
+      </section>
+
+      <section>
+        <h2>Takeaway and Transition</h2>
+        <ul>
+          <li>Standard zero forcing tracks deterministic propagation via the unique-white-neighbor rule.</li>
+          <li>Central optimization: minimize $\lvert B_0\rvert$, giving $Z(G)$.</li>
+          <li>Next: extend to $(t,r)$ frameworks.</li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Reveal.js and plugins -->
+  <script src="https://unpkg.com/reveal.js@4.4.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+  <script src="https://unpkg.com/reveal.js@4.4.0/dist/plugin/math/math.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      plugins: [ RevealMath ]
+    });
+  </script>
+</body>
+</html>
