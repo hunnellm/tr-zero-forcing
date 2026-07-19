@@ -22,7 +22,6 @@
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 
-
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amsthm,verbatim,amssymb,amsfonts,amscd}
 \usepackage{graphicx}
@@ -39,11 +38,6 @@
 \newtheorem{case}{Case}
 \newtheorem{subcase}{Sub-Case}[case]
 
-\DeclareMathOperator{\p}{P}
-\DeclareMathOperator{\Z}{Z}
-\DeclareMathOperator{\C}{C}
-\DeclareMathOperator{\F}{F}
-\DeclareMathOperator{\pt}{pt}
 \DeclareMathOperator{\ct}{ct}
 \DeclareMathOperator{\act}{act}
 \DeclareMathOperator{\Term}{Term}
@@ -74,7 +68,7 @@
 
 \tikzset{bzf/.style={circle, draw, fill=blue!30, minimum size=2pt}}
 \tikzset{wzf/.style={circle, draw}}
-\usetikzlibrary{backgrounds,arrows.meta,positioning}
+\usetikzlibrary{backgrounds,arrows.meta,positioning,calc}
 \tikzset{
   .../.tip={[sep=2pt 2]
     Round Cap[]. Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2,sep=2pt] Circle[length=0pt 2, sep=2pt 2]}}
@@ -103,7 +97,7 @@ Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
 
 \newcommand{\degre}{\ensuremath{^\circ}}
 
-\title{$(t,r)$ Zero Forcing}
+\title{(Broadcast) Zero Forcing}
 \author{Mark Hunnell}
 \date{June 2026}
 
@@ -112,6 +106,7 @@ Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
 \begin{frame}
   \maketitle
 \end{frame}
+
 
 \begin{frame}
 \frametitle{About Me}
@@ -204,7 +199,7 @@ Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
 \frametitle{Graphs}
 We will study simple graphs.  i.e.
 \begin{itemize}
-\item A collection of vertices/nodes and edges between them
+\item A collection of vertices/nodes and edges between them, $G= (V(G),E(G))$.
 \end{itemize}
  \begin{center}
 \begin{figure} 
@@ -575,91 +570,91 @@ Visit all the nodes of a graph and return home as quickly as possible.
 \small
 Let $G=(V,E)$ be a simple graph.
 \begin{itemize}
-  \item Each vertex is colored either light-blue (active) or white (inactive).
-  \item Start with an initial active set $B_0\subseteq V$.
+  \item Each vertex is initially colored either blue (active) or white (inactive).
+  \item Start with an initial active set $B_0\subseteq V(G)$.
   \item Apply the color-change rule repeatedly.
 \end{itemize}
 
 \vspace{0.2em}
-\textbf{Color-change rule:} If an active vertex $u$ has exactly one white neighbor $v$, then $u$ \emph{forces} $v$ to become active. We write $u\to v$.
+\textbf{Color-change rule:} If a blue vertex $u$ has exactly one white neighbor $v$, then $u$ \emph{forces} $v$ to become blue. We write $u\to v$.
 \end{frame}
 
 \begin{frame}{Process and Terminology}
 \small
 \begin{itemize}
   \item A sequence of valid forces is a \emph{forcing process}.
-  \item If every vertex eventually becomes active, then $B_0$ is a \emph{zero forcing set}.
+  \item If every vertex eventually becomes blue, then $B_0$ is a \emph{zero forcing set}.
   \item The minimum size of such a set is the \emph{zero forcing number}:
 \end{itemize}
 
 \[
-Z(G)=\min\{\abs{B}: B\subseteq V,\ B \text{ is a zero forcing set}\}.
+Z(G)=\min\{\abs{B}: B\subseteq V(G),\ B \text{ is a zero forcing set}\}.
 \]
 
 \vspace{0.2em}
-\textbf{Goal:} choose a small initial active set that propagates to all of $V$.
+\textbf{Goal:} choose a small initial active set that propagates to all of $V(G)$.
 \end{frame}
 
 \begin{frame}{Animated Example on the Path $P_5$}
 \centering
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\small}]
   \only<1>{
-    \node[zfblack] (v1) at (0,0) {$1$};
-    \node[zfwhite] (v2) at (1.7,0) {$2$};
-    \node[zfwhite] (v3) at (3.4,0) {$3$};
-    \node[zfwhite] (v4) at (5.1,0) {$4$};
-    \node[zfwhite] (v5) at (6.8,0) {$5$};
+    \node[zfblack] (v1) at (0,0) {$v_1$};
+    \node[zfwhite] (v2) at (1.7,0) {$v_2$};
+    \node[zfwhite] (v3) at (3.4,0) {$v_3$};
+    \node[zfwhite] (v4) at (5.1,0) {$v_4$};
+    \node[zfwhite] (v5) at (6.8,0) {$v_5$};
     \draw (v1)--(v2)--(v3)--(v4)--(v5);
-    \node[align=center] at (3.4,-0.9) {$B_0=\{1\}$};
+    \node[align=center] at (3.4,-0.9) {$B_0=\{v_1\}$};
   }
 
   \only<2>{
-    \node[zfblack] (v1) at (0,0) {$1$};
-    \node[zfblack] (v2) at (1.7,0) {$2$};
-    \node[zfwhite] (v3) at (3.4,0) {$3$};
-    \node[zfwhite] (v4) at (5.1,0) {$4$};
-    \node[zfwhite] (v5) at (6.8,0) {$5$};
+    \node[zfblack] (v1) at (0,0) {$v_1$};
+    \node[zfblack] (v2) at (1.7,0) {$v_2$};
+    \node[zfwhite] (v3) at (3.4,0) {$v_3$};
+    \node[zfwhite] (v4) at (5.1,0) {$v_4$};
+    \node[zfwhite] (v5) at (6.8,0) {$v_5$};
     \draw (v1)--(v2)--(v3)--(v4)--(v5);
     \draw[zfforce] (0.5,0.32) -- (1.2,0.32);
-    \node[align=center] at (3.4,-0.9) {$1\to2$};
+    \node[align=center] at (3.4,-0.9) {$v_1\to v_2$};
   }
 
   \only<3>{
-    \node[zfblack] (v1) at (0,0) {$1$};
-    \node[zfblack] (v2) at (1.7,0) {$2$};
-    \node[zfblack] (v3) at (3.4,0) {$3$};
-    \node[zfwhite] (v4) at (5.1,0) {$4$};
-    \node[zfwhite] (v5) at (6.8,0) {$5$};
+    \node[zfblack] (v1) at (0,0) {$v_1$};
+    \node[zfblack] (v2) at (1.7,0) {$v_2$};
+    \node[zfblack] (v3) at (3.4,0) {$v_3$};
+    \node[zfwhite] (v4) at (5.1,0) {$v_4$};
+    \node[zfwhite] (v5) at (6.8,0) {$v_5$};
     \draw (v1)--(v2)--(v3)--(v4)--(v5);
     \draw[zfforce] (2.2,0.32) -- (2.9,0.32);
-    \node[align=center] at (3.4,-0.9) {$2\to3$};
+    \node[align=center] at (3.4,-0.9) {$v_2\to v_3$};
   }
 
   \only<4>{
-    \node[zfblack] (v1) at (0,0) {$1$};
-    \node[zfblack] (v2) at (1.7,0) {$2$};
-    \node[zfblack] (v3) at (3.4,0) {$3$};
-    \node[zfblack] (v4) at (5.1,0) {$4$};
-    \node[zfwhite] (v5) at (6.8,0) {$5$};
+    \node[zfblack] (v1) at (0,0) {$v_1$};
+    \node[zfblack] (v2) at (1.7,0) {$v_2$};
+    \node[zfblack] (v3) at (3.4,0) {$v_3$};
+    \node[zfblack] (v4) at (5.1,0) {$v_4$};
+    \node[zfwhite] (v5) at (6.8,0) {$v_5$};
     \draw (v1)--(v2)--(v3)--(v4)--(v5);
     \draw[zfforce] (3.9,0.32) -- (4.6,0.32);
-    \node[align=center] at (3.4,-0.9) {$3\to4$};
+    \node[align=center] at (3.4,-0.9) {$v_3\to v_4$};
   }
 
   \only<5>{
-    \node[zfblack] (v1) at (0,0) {$1$};
-    \node[zfblack] (v2) at (1.7,0) {$2$};
-    \node[zfblack] (v3) at (3.4,0) {$3$};
-    \node[zfblack] (v4) at (5.1,0) {$4$};
-    \node[zfblack] (v5) at (6.8,0) {$5$};
+    \node[zfblack] (v1) at (0,0) {$v_1$};
+    \node[zfblack] (v2) at (1.7,0) {$v_2$};
+    \node[zfblack] (v3) at (3.4,0) {$v_3$};
+    \node[zfblack] (v4) at (5.1,0) {$v_4$};
+    \node[zfblack] (v5) at (6.8,0) {$v_5$};
     \draw (v1)--(v2)--(v3)--(v4)--(v5);
     \draw[zfforce] (5.6,0.32) -- (6.3,0.32);
-    \node[align=center] at (3.4,-0.9) {$4\to5$};
+    \node[align=center] at (3.4,-0.9) {$v_4\to v_5$};
   }
 \end{tikzpicture}
 
 \vspace{0.3em}
-\onslide<6->{\small All vertices are active, so $\{1\}$ is a zero forcing set for $P_5$.}
+\onslide<6->{\small All vertices are blue, so $\{v_1\}$ is a zero forcing set for $P_5$.}
 \end{frame}
 
 \begin{frame}{Why the Path Example Works}
@@ -667,23 +662,23 @@ Z(G)=\min\{\abs{B}: B\subseteq V,\ B \text{ is a zero forcing set}\}.
 \begin{columns}[T,totalwidth=\textwidth]
 \column{0.53\textwidth}
 \begin{itemize}
-  \item Start with one active endpoint.
+  \item Start with one blue endpoint.
   \item At each step, the current frontier vertex has exactly one white neighbor.
   \item This keeps creating the next valid force.
 \end{itemize}
 
 \[
-1\to2\to3\to4\to5
+v_1\to v_2\to v_3\to v_4\to v_5
 \]
 
 \column{0.47\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.82, every node/.style={font=\small}]
-  \node[zfblack] (v1) at (0,0) {$1$};
-  \node[zfblack] (v2) at (1.2,0) {$2$};
-  \node[zfblack] (v3) at (2.4,0) {$3$};
-  \node[zfblack] (v4) at (3.6,0) {$4$};
-  \node[zfblack] (v5) at (4.8,0) {$5$};
+  \node[zfblack] (v1) at (0,0) {$v_1$};
+  \node[zfblack] (v2) at (1.2,0) {$v_2$};
+  \node[zfblack] (v3) at (2.4,0) {$v_3$};
+  \node[zfblack] (v4) at (3.6,0) {$v_4$};
+  \node[zfblack] (v5) at (4.8,0) {$v_5$};
   \draw (v1)--(v2)--(v3)--(v4)--(v5);
 \end{tikzpicture}
 \end{columns}
@@ -696,29 +691,29 @@ Z(G)=\min\{\abs{B}: B\subseteq V,\ B \text{ is a zero forcing set}\}.
 \centering
 \textbf{Blocked state}
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\scriptsize}]
-  \node[zfblack] (a1) at (90:1.4) {$1$};
-  \node[zfwhite] (a2) at (18:1.4) {$2$};
-  \node[zfwhite] (a3) at (-54:1.4) {$3$};
-  \node[zfwhite] (a4) at (-126:1.4) {$4$};
-  \node[zfwhite] (a5) at (162:1.4) {$5$};
+  \node[zfblack] (a1) at (90:1.4) {$v_1$};
+  \node[zfwhite] (a2) at (18:1.4) {$v_2$};
+  \node[zfwhite] (a3) at (-54:1.4) {$v_3$};
+  \node[zfwhite] (a4) at (-126:1.4) {$v_4$};
+  \node[zfwhite] (a5) at (162:1.4) {$v_5$};
   \draw (a1)--(a2)--(a3)--(a4)--(a5)--(a1);
   \draw (a1)--(a3);
-  \node[align=center] at (0,-2.0) {Vertex 1 has two white neighbors\\$(2,3)$, so no force.};
+  \node[align=center] at (0,-2.0) {Vertex $v_1$ has two white neighbors\\$(v_2,v_3)$, so no force.};
 \end{tikzpicture}
 
 \column{0.5\textwidth}
 \centering
 \textbf{Forceable state}
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\scriptsize}]
-  \node[zfblack] (b1) at (90:1.4) {$1$};
-  \node[zfwhite] (b2) at (18:1.4) {$2$};
-  \node[zfblack] (b3) at (-54:1.4) {$3$};
-  \node[zfwhite] (b4) at (-126:1.4) {$4$};
-  \node[zfwhite] (b5) at (162:1.4) {$5$};
+  \node[zfblack] (b1) at (90:1.4) {$v_1$};
+  \node[zfwhite] (b2) at (18:1.4) {$v_2$};
+  \node[zfblack] (b3) at (-54:1.4) {$v_3$};
+  \node[zfwhite] (b4) at (-126:1.4) {$v_4$};
+  \node[zfwhite] (b5) at (162:1.4) {$v_5$};
   \draw (b1)--(b2)--(b3)--(b4)--(b5)--(b1);
   \draw (b1)--(b3);
   \draw[zfforce] (70:1.0) -- (30:1.0);
-  \node[align=center] at (0,-2.0) {Now vertex 1 has unique white neighbor 2,\\so $1\to2$ is legal.};
+  \node[align=center] at (0,-2.0) {Now vertex $v_1$ has unique white neighbor $v_2$,\\so $v_1\to v_2$ is legal.};
 \end{tikzpicture}
 \end{columns}
 \end{frame}
@@ -747,7 +742,7 @@ Z(G)=\min\{\abs{B}: B\subseteq V,\ B \text{ is a zero forcing set}\}.
 \column{0.44\textwidth}
 \begin{itemize}
   \item With $B_0=\{r,b\}$, vertex $b$ can force $r$ or one leaf depending on current colors.
-  \item If the wrong vertices are initially active, propagation can stall.
+  \item If the wrong vertices are initially blue, propagation can stall.
   \item Strategic initial placement is the heart of zero forcing.
 \end{itemize}
 \end{columns}
@@ -758,12 +753,133 @@ Z(G)=\min\{\abs{B}: B\subseteq V,\ B \text{ is a zero forcing set}\}.
 \begin{itemize}
   \item Standard zero forcing tracks deterministic propagation via the unique-white-neighbor rule.
   \item The central optimization problem is minimizing $\abs{B_0}$, giving $Z(G)$.
-  \item This classical process is our baseline for $(t,r)$ zero forcing, where force dynamics are generalized.
+  \item This classical process is our baseline for $(k,r)$ zero forcing, where force dynamics are generalized.
 \end{itemize}
 
 \vspace{0.35em}
 \centering
-\large Next: extending from $Z(G)$ to $(t,r)$ frameworks.
+\large Next: extending from $Z(G)$ to broadcast zero forcing.
 \end{frame}
 
-\end{document}
+\begin{frame}
+  \frametitle{$(k,r)$ zero forcing}
+\begin{itemize}
+  \item In some applications, the forcing process corresponds to solving a system of linear equations.
+  \item In others, it models the spread of information or influence through a network.
+  \item Information becomes outdated or irrelevant over time, so we want to model the decay of influence.
+  \item Broadcast zero forcing generalizes the standard process by allowing a vertex to force multiple neighbors at once, subject to a threshold condition.
+  \item This leads to the $(k,r)$ zero forcing framework, where $k$ is the threshold and $r$ is the radius of influence.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$(k,r)$-zero forcing}
+  \centering
+  \begin{tikzpicture}[every node/.style={font=\small},scale=1]
+  \tikzset{
+      v/.style={circle,draw=black,minimum size=5mm,inner sep=0.8pt},
+      initA/.style={fill=red!60},
+      initB/.style={fill=green!60},
+      initC/.style={fill=blue!60},
+      forceA/.style={fill=red!30},
+      forceB/.style={fill=green!30},
+      forceC/.style={fill=blue!30},
+      nextA/.style={fill=red!10},
+      nextB/.style={fill=green!10},
+      nextC/.style={fill=blue!10},
+      arrA/.style={->,very thick,red!70,shorten >=1pt,shorten <=1pt},
+      arrB/.style={->,very thick,green!70,shorten >=1pt,shorten <=1pt},
+      arrC/.style={->,very thick,blue!70,shorten >=1pt,shorten <=1pt},
+      edgeStyle/.style={shorten >=1pt,shorten <=1pt}
+    }
+    \only<1>{
+      \node[v,initA] (a) at (-2,0.7) {};
+      \node[above=2pt of a] {3};
+      \node[v,initB] (b) at (-2,-0.7) {};
+      \node[below=2pt of b] {3};
+
+      \node[v] (c) at (0,1.2) {};
+      \node[v] (d) at (0,0) {};
+      \node[v] (e) at (0,-1.2) {};
+
+      \node[v] (f) at (2,1.2) {};
+      \node[v] (g) at (2,0) {};
+      \node[v] (h) at (2,-1.2) {};
+
+      \draw[thick] (a) -- (c) -- (f);
+      \draw[thick] (a) -- (d) -- (g);
+      \draw[thick] (b) -- (d);
+      \draw[thick] (b) -- (e) -- (h);
+    }
+
+    % Slide 2: initial vertices still labeled 3; vertices they force become 2
+    \only<2>{
+      \node[v,initA] (a) at (-2,0.7) {};
+      \node[above=2pt of a] {3};
+      \node[v,initB] (b) at (-2,-0.7) {};
+      \node[below=2pt of b] {3};
+
+      \node[v,forceA] (c) at (0,1.2) {};
+      \node[above=2pt of c] {2};
+      \node[v,forceA] (d) at (0,0) {};
+      \node[above right=1pt of d] {2};
+      \node[v,forceB] (e) at (0,-1.2) {};
+      \node[below=2pt of e] {2};
+
+      \node[v] (f) at (2,1.2) {};
+      \node[v] (g) at (2,0) {};
+      \node[v] (h) at (2,-1.2) {};
+
+      \draw[thick] (a) -- (c) -- (f);
+      \draw[thick] (a) -- (d) -- (g);
+      \draw[thick] (b) -- (d);
+      \draw[thick] (b) -- (e) -- (h);
+
+      % Forcing arrows showing which initial vertex forces which neighbors
+      \draw[farr,red!70] (a) to[bend left=15] (c);
+      \draw[farr,red!70] (a) to[bend right=15] (d);
+      \draw[farr,green!70] (b) to[bend right=15] (e);
+    }
+
+    % Slide 3: next layer receives weight 1 and inherits forcing color
+    \only<3>{
+      \node[v,initA] (a) at (-2,0.7) {};
+      \node[above=2pt of a] {3};
+      \node[v,initB] (b) at (-2,-0.7) {};
+      \node[below=2pt of b] {3};
+
+      \node[v,forceA] (c) at (0,1.2) {};
+      \node[above=2pt of c] {2};
+      \node[v,forceA] (d) at (0,0) {};
+      \node[above right=1pt of d] {2};
+      \node[v,forceB] (e) at (0,-1.2) {};
+      \node[below=2pt of e] {2};
+
+      \node[v,nextA] (f) at (2,1.2) {};
+      \node[above=2pt of f] {1};
+      \node[v,nextA] (g) at (2,0) {};
+      \node[above right=1pt of g] {1};
+      \node[v,nextB] (h) at (2,-1.2) {};
+      \node[below=2pt of h] {1};
+
+      \draw[thick] (a) -- (c) -- (f);
+      \draw[thick] (a) -- (d) -- (g);
+      \draw[thick] (b) -- (d);
+      \draw[thick] (b) -- (e) -- (h);
+
+      %\draw[farr] (a) to[bend left=15] (c);
+      %\draw[farr] (a) to[bend right=15] (d);
+      %\draw[farr] (b) to[bend right=15] (e);
+
+      \draw[farr,red!70] (c) to [bend left=15] (f);
+      \draw[farr,red!70] (d) to[bend right=15] (g);
+      \draw[farr,green!70] (e) to[bend right=15] (h);
+    }
+
+    \node[align=center] at (0,-2.4) {Animated $(2,3)$-zero forcing: colors denote forcing origin.};
+  \end{tikzpicture}
+\end{frame}
+
+   
+    \end{document}

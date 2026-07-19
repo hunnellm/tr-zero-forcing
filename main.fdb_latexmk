@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1784390431 "/workspaces/tr-zero-forcing/main.tex" "main.pdf" "main" 1784390435 0
+["pdflatex"] 1784478759 "/workspaces/tr-zero-forcing/main.tex" "main.pdf" "main" 1784478765 2
   "/etc/texmf/web2c/texmf.cnf" 1784382008 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm" 1136768653 1536 06717a2b50de47d4087ac0e6cd759455 ""
@@ -82,6 +82,7 @@
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex" 1601326656 8893 e851de2175338fdf7c17f3e091d94618 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex" 1601326656 319 225dfe354ba678ff3c194968db39d447 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex" 1601326656 4572 4a19637ef65ce88ad2f2d5064b69541d ""
+  "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex" 1601326656 15929 463535aa2c4268fead6674a75c0e8266 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex" 1601326656 5493 23e371e6fe3e7e42533d6d6c15662e0d ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex" 1601326656 321 cdd11262840e01e25374a2d458f15e99 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathreplacing.code.tex" 1601326656 1319 0b2de5126c6cbc295f0eb77f7344b34d ""
@@ -285,7 +286,7 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1613593815 38841 799d1dd9682a55ce442e10c99777ecc1 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1784382025 4856172 17904a52973240b44a2e5720d5f9ac05 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1784382034 1313644 1c1a1cae5db54d8fac7c318427f03c79 ""
-  "/workspaces/tr-zero-forcing/main.tex" 1784390425 20191 57adc61f338038fb34fa4e2f137a2ff4 ""
+  "/workspaces/tr-zero-forcing/main.tex" 1784478753 24439 24596d1295f9cf739cd1361f25c96b0f ""
   "images/TSP3.png" 1784389331 103576 7acdb40488ed3c7597d5bee9e5cd561e ""
   "images/bob.jpeg" 1784389325 515140 6eb920bf996ef2be8d54161ca1e82474 ""
   "images/chem1.png" 1784389324 140487 974371b39eaeacd94adfca9f9fad8c10 ""
@@ -304,10 +305,10 @@
   "images/spp.png" 1784389326 147830 1b955f0f58bee71b4a6a340cc208eb29 ""
   "images/winnie.JPG" 1784389311 1633783 5e0a8f7c35576a9b377c021b5b0aa6cc ""
   "images/zf.png" 1784389327 52468 a5432d43787b4b9df6edc87d93343628 ""
-  "main.aux" 1784390435 4100 6995042419b5e5be05a1a2d940d7f1ee "pdflatex"
-  "main.nav" 1784390435 2225 bbbcd298616e3c9a82d5d13aeed9760a "pdflatex"
-  "main.out" 1784390433 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1784390425 20191 57adc61f338038fb34fa4e2f137a2ff4 ""
+  "main.aux" 1784478764 4358 faa7ccaea66263b9330c4db8c82bc990 "pdflatex"
+  "main.nav" 1784478764 2411 25592262254c5549858e667afbb55462 "pdflatex"
+  "main.out" 1784478764 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1784478753 24439 24596d1295f9cf739cd1361f25c96b0f ""
   (generated)
   "main.aux"
   "main.log"
