@@ -68,6 +68,7 @@
 
 \tikzset{bzf/.style={circle, draw, fill=blue!30, minimum size=2pt}}
 \tikzset{wzf/.style={circle, draw}}
+\tikzset{farr/.style={->,very thick,shorten >=1pt,shorten <=1pt}}
 \usetikzlibrary{backgrounds,arrows.meta,positioning,calc}
 \tikzset{
   .../.tip={[sep=2pt 2]
@@ -274,17 +275,17 @@ We will study simple graphs.  i.e.
 %    \end{scope}
 
 \begin{scope}[shift={(-15,0)},scale=1.25]
-		\node [wzf] (0) at (-0.75, -0.25) {};
-		\node [wzf] (1) at (0.25, -0.25) {};
-		\node [wzf] (2) at (1.25, -0.25) {};
-		\node [wzf] (3) at (0.25, -1.25) {};
-		\node [wzf] (4) at (0.25, 0.75) {};
-		\node [wzf] (5) at (2.5, -0.25) {};
-		\node [wzf] (6) at (3.5, -0.25) {};
-		\node [wzf] (7) at (4, 0.5) {};
-		\node [wzf] (8) at (4.5, 1.25) {};
-		\node [wzf] (9) at (4.25, -1) {};
-		\node [wzf] (10) at (5, -1.75) {};
+		\node [vertex] (0) at (-0.75, -0.25) {};
+		\node [vertex] (1) at (0.25, -0.25) {};
+		\node [vertex] (2) at (1.25, -0.25) {};
+		\node [vertex] (3) at (0.25, -1.25) {};
+		\node [vertex] (4) at (0.25, 0.75) {};
+		\node [vertex] (5) at (2.5, -0.25) {};
+		\node [vertex] (6) at (3.5, -0.25) {};
+		\node [vertex] (7) at (4, 0.5) {};
+		\node [vertex] (8) at (4.5, 1.25) {};
+		\node [vertex] (9) at (4.25, -1) {};
+		\node [vertex] (10) at (5, -1.75) {};
 %
 		\draw[thick] (4) to (2);
 		\draw[thick] (3) to (2);
@@ -519,7 +520,7 @@ We will study simple graphs.  i.e.
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{l l }
 \centering
-\fbox{\includegraphics[width=.40\linewidth]{images/post}} & \fbox{\includegraphics[width=.40\linewidth]{images/spp} }
+ \fbox{\includegraphics[width=.80\linewidth]{images/spp} }
 \end{tabular}
 \end{column}
 \end{columns}
@@ -528,42 +529,42 @@ We will study simple graphs.  i.e.
 \end{center}
 \end{frame}
 
-\begin{frame}
-\frametitle{Traveling Salesman Problem}
-\begin{columns}
-\begin{column}{0.45\textwidth}
-\begin{block}{Problem Description}
-Visit all the nodes of a graph and return home as quickly as possible.
-\end{block}
-\end{column}
-%    \begin{column}{0.45\textwidth}
-%    \fbox{\includegraphics[width = 0.9\textwidth]{images/TSP3}}
-%    \end{column}
-\end{columns}
-\begin{center}
-\fbox{\includegraphics[width = 0.45\linewidth]{images/TSP3}}
-\end{center}
-\end{frame}
+%\begin{frame}
+%\frametitle{Traveling Salesman Problem}
+%\begin{columns}
+%\begin{column}{0.45\textwidth}
+%\begin{block}{Problem Description}
+%Visit all the nodes of a graph and return home as quickly as possible.
+%\end{block}
+%\end{column}
+%%    \begin{column}{0.45\textwidth}
+%%    \fbox{\includegraphics[width = 0.9\textwidth]{images/TSP3}}
+%%    \end{column}
+%\end{columns}
+%\begin{center}
+%\fbox{\includegraphics[width = 0.45\linewidth]{images/TSP3}}
+%\end{center}
+%\end{frame}
 
-\begin{frame}
-\frametitle{Demonstration}
-\begin{columns}
-\begin{column}{0.45\textwidth}
-\begin{block}{Other Applications}
-\begin{itemize}
-\item DNA sequencing
-\item Covid transmission
-\item Agriculture
-\item Sales
-\item etc.
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.45\textwidth}
-\href{https://tspvis.com/}{\fbox{\includegraphics[width = 0.88\linewidth]{images/TSP3}}}
-\end{column}
-\end{columns}
-\end{frame}
+%\begin{frame}
+%\frametitle{Demonstration}
+%\begin{columns}
+%\begin{column}{0.45\textwidth}
+%\begin{block}{Other Applications}
+%\begin{itemize}
+%\item DNA sequencing
+%\item Covid transmission
+%\item Agriculture
+%\item Sales
+%\item etc.
+%\end{itemize}
+%\end{block}
+%\end{column}
+%\begin{column}{0.45\textwidth}
+%\href{https://tspvis.com/}{\fbox{\includegraphics[width = 0.88\linewidth]{images/TSP3}}}
+%\end{column}
+%\end{columns}
+%\end{frame}
 
 
 \begin{frame}{Standard Zero Forcing: Core Idea}
@@ -571,7 +572,7 @@ Visit all the nodes of a graph and return home as quickly as possible.
 Let $G=(V,E)$ be a simple graph.
 \begin{itemize}
   \item Each vertex is initially colored either blue (active) or white (inactive).
-  \item Start with an initial active set $B_0\subseteq V(G)$.
+  \item Start with an initial active set $B_0\subseteq V$.
   \item Apply the color-change rule repeatedly.
 \end{itemize}
 
@@ -595,7 +596,7 @@ Z(G)=\min\{\abs{B}: B\subseteq V(G),\ B \text{ is a zero forcing set}\}.
 \textbf{Goal:} choose a small initial active set that propagates to all of $V(G)$.
 \end{frame}
 
-\begin{frame}{Animated Example on the Path $P_5$}
+\begin{frame}{Example on the Path $P_5$}
 \centering
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\small}]
   \only<1>{
@@ -654,7 +655,12 @@ Z(G)=\min\{\abs{B}: B\subseteq V(G),\ B \text{ is a zero forcing set}\}.
 \end{tikzpicture}
 
 \vspace{0.3em}
-\onslide<6->{\small All vertices are blue, so $\{v_1\}$ is a zero forcing set for $P_5$.}
+\onslide<6->{\small All vertices are blue, so $\{v_1\}$ is a zero forcing set for $P_5$.
+\vspace{.5in}
+Forcing Sequence:\[
+v_1\to v_2\to v_3\to v_4\to v_5
+\]
+}
 \end{frame}
 
 \begin{frame}{Why the Path Example Works}
@@ -664,7 +670,7 @@ Z(G)=\min\{\abs{B}: B\subseteq V(G),\ B \text{ is a zero forcing set}\}.
 \begin{itemize}
   \item Start with one blue endpoint.
   \item At each step, the current frontier vertex has exactly one white neighbor.
-  \item This keeps creating the next valid force.
+  \item Forcing Sequence:
 \end{itemize}
 
 \[
@@ -693,27 +699,27 @@ v_1\to v_2\to v_3\to v_4\to v_5
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\scriptsize}]
   \node[zfblack] (a1) at (90:1.4) {$v_1$};
   \node[zfwhite] (a2) at (18:1.4) {$v_2$};
-  \node[zfwhite] (a3) at (-54:1.4) {$v_3$};
+  \node[zfblack] (a3) at (-54:1.4) {$v_3$};
   \node[zfwhite] (a4) at (-126:1.4) {$v_4$};
   \node[zfwhite] (a5) at (162:1.4) {$v_5$};
   \draw (a1)--(a2)--(a3)--(a4)--(a5)--(a1);
   \draw (a1)--(a3);
-  \node[align=center] at (0,-2.0) {Vertex $v_1$ has two white neighbors\\$(v_2,v_3)$, so no force.};
+  \node[align=center] at (0,-2.0) {Both filled vertices have two white \\neighbors, so no force is valid.};
 \end{tikzpicture}
 
 \column{0.5\textwidth}
 \centering
 \textbf{Forceable state}
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\scriptsize}]
-  \node[zfblack] (b1) at (90:1.4) {$v_1$};
-  \node[zfwhite] (b2) at (18:1.4) {$v_2$};
+  \node[zfwhite] (b1) at (90:1.4) {$v_1$};
+  \node[zfblack] (b2) at (18:1.4) {$v_2$};
   \node[zfblack] (b3) at (-54:1.4) {$v_3$};
   \node[zfwhite] (b4) at (-126:1.4) {$v_4$};
   \node[zfwhite] (b5) at (162:1.4) {$v_5$};
   \draw (b1)--(b2)--(b3)--(b4)--(b5)--(b1);
   \draw (b1)--(b3);
-  \draw[zfforce] (70:1.0) -- (30:1.0);
-  \node[align=center] at (0,-2.0) {Now vertex $v_1$ has unique white neighbor $v_2$,\\so $v_1\to v_2$ is legal.};
+  \draw[zfforce]  (30:1.0) --(70:1.0);
+  \node[align=center] at (0,-2.0) {Now vertex $v_2$ has unique white neighbor $v_1$,\\so $v_2\to v_1$ is valid.};
 \end{tikzpicture}
 \end{columns}
 \end{frame}
@@ -880,6 +886,8 @@ v_1\to v_2\to v_3\to v_4\to v_5
     \node[align=center] at (0,-2.4) {Animated $(2,3)$-zero forcing: colors denote forcing origin.};
   \end{tikzpicture}
 \end{frame}
+
+
 
    
     \end{document}
