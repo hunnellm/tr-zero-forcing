@@ -37,11 +37,16 @@
 \newtheorem{claim}{Claim}
 \newtheorem{case}{Case}
 \newtheorem{subcase}{Sub-Case}[case]
+\theoremstyle{definition}
+\newtheorem{observation}{Observation}
+%\newtheorem{definition}{Definition}
 
 \DeclareMathOperator{\ct}{ct}
 \DeclareMathOperator{\act}{act}
 \DeclareMathOperator{\Term}{Term}
 \DeclareMathOperator{\PIP}{PIP}
+\DeclareMathOperator{\Z}{Z}
+
 
 \usepackage{tikz}
 \usepackage{float}
@@ -95,12 +100,13 @@ Circle[length=1pt,sep=0pt,color=black] Square[length=2pt,sep=0pt,color=white]}}
 \DeclareMathOperator{\dfpt}{dfpt}
 \DeclareMathOperator{\ifpt}{ifpt}
 \DeclareMathOperator{\fpt}{fpt}
+\DeclareMathOperator{\wt}{wt}
 
 \newcommand{\degre}{\ensuremath{^\circ}}
-
-\title{(Broadcast) Zero Forcing}
+\usetheme{Berlin} 
+\title{Zero Forcing \\ (and a new variant)}
 \author{Mark Hunnell}
-\date{June 2026}
+\date{July 27, 2026 \\ American Institute of Mathematics \\ REUF 2026}
 
 \begin{document}
 
@@ -374,8 +380,20 @@ We will study simple graphs.  i.e.
 
 \end{figure}
 \end{center}
+\end{frame}
 
-
+\begin{frame}{Undergraduate research in graph theory}
+    \begin{columns}
+        \begin{column}{0.65\textwidth}
+            \begin{itemize}
+                \item Minimal background required
+                \item Problems cater to different student strengths
+                \item Scalability (CUREs, UR teams)
+                \item Early results
+                \item Applications
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -589,7 +607,7 @@ Let $G=(V,E)$ be a simple graph.
 \end{itemize}
 
 \[
-Z(G)=\min\{\abs{B}: B\subseteq V(G),\ B \text{ is a zero forcing set}\}.
+\Z(G)=\min\{\abs{B}: B\subseteq V(G),\ B \text{ is a zero forcing set}\}.
 \]
 
 \vspace{0.2em}
@@ -758,26 +776,126 @@ v_1\to v_2\to v_3\to v_4\to v_5
 \small
 \begin{itemize}
   \item Standard zero forcing tracks deterministic propagation via the unique-white-neighbor rule.
-  \item The central optimization problem is minimizing $\abs{B_0}$, giving $Z(G)$.
+  \item The central optimization problem is minimizing $\abs{B_0}$, giving $\Z(G)$.
   \item This classical process is our baseline for $(k,r)$ zero forcing, where force dynamics are generalized.
 \end{itemize}
 
 \vspace{0.35em}
 \centering
-\large Next: extending from $Z(G)$ to broadcast zero forcing.
+\large Next: extending from $\Z(G)$ to $(k,r)$-forcing.
 \end{frame}
 
 \begin{frame}
-  \frametitle{$(k,r)$ zero forcing}
+  \frametitle{$(k,r)$-zero forcing}
 \begin{itemize}
   \item In some applications, the forcing process corresponds to solving a system of linear equations.
   \item In others, it models the spread of information or influence through a network.
-  \item Information becomes outdated or irrelevant over time, so we want to model the decay of influence.
-  \item Broadcast zero forcing generalizes the standard process by allowing a vertex to force multiple neighbors at once, subject to a threshold condition.
-  \item This leads to the $(k,r)$ zero forcing framework, where $k$ is the threshold and $r$ is the radius of influence.
+  \item Information becomes outdated or irrelevant over time (battery life, processor capacity, etc.), so we want to model the decay of influence.
+  \item $(k,r)$-forcing generalizes the standard process by allowing a vertex to force multiple neighbors at once, subject to a threshold condition.
+  \item This leads to the $(k,r)$-forcing framework, where $k$ is the threshold and $r$ is the radius of influence.
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}
+  \frametitle{$(k,r)$-zero forcing}
+  \centering
+  \begin{tikzpicture}[every node/.style={font=\small},scale=1]
+  \tikzset{
+      v/.style={circle,draw=black,minimum size=5mm,inner sep=0.8pt},
+      initA/.style={fill=red!60},
+      initB/.style={fill=green!60},
+      initC/.style={fill=blue!60},
+      forceA/.style={fill=red!30},
+      forceB/.style={fill=green!30},
+      forceC/.style={fill=blue!30},
+      nextA/.style={fill=red!10},
+      nextB/.style={fill=green!10},
+      nextC/.style={fill=blue!10},
+      arrA/.style={->,very thick,red!70,shorten >=1pt,shorten <=1pt},
+      arrB/.style={->,very thick,green!70,shorten >=1pt,shorten <=1pt},
+      arrC/.style={->,very thick,blue!70,shorten >=1pt,shorten <=1pt},
+      edgeStyle/.style={shorten >=1pt,shorten <=1pt}
+    }
+    \only<1>{
+      \node[v,initA] (a) at (-2,1) {};
+      \node[above=2pt of a] {3};
+      \node[v] (b) at (1,1) {};
+      
+
+      \node[v] (c) at (-1,1) {};
+      \node[v] (d) at (0,1) {};
+      \node[v,initB] (i) at (2,1) {};
+      \node[above=2pt of i] {3};
+      \node[v] (e) at (3,1) {};
+
+      \node[v] (f) at (4,1) {};
+      \node[v] (g) at (5,1) {};
+      \node[v,initC] (h) at (6,1) {};
+        \node[above=2pt of h] {3};
+      \draw[thick] (a)--(c)--(d)--(b)--(i)--(e)--(f)--(g)--(h);
+    }
+
+    % Slide 2: initial vertices still labeled 3; vertices they force become 2
+    \only<2>{
+    \node[v,initA] (a) at (-2,1) {};
+      %\node[above=2pt of a] {3};
+      \node[v] (b) at (1,1) {};
+      \node[above=2pt of i] {3};
+      \node[above=2pt of c] {2};
+
+      \node[v,forceA] (c) at (-1,1) {};
+      \node[v] (d) at (0,1) {};
+      \node[v,initB] (i) at (2,1) {};
+      \node[v] (e) at (3,1) {};
+
+      \node[v] (f) at (4,1) {};
+      \node[v,forceC] (g) at (5,1) {};
+      \node[v,initC] (h) at (6,1) {};
+        %\node[above=2pt of h] {3};
+        \node[above=2pt of g] {2};
+      \draw[thick] (a)--(c)--(d)--(b)--(i)--(e)--(f)--(g)--(h);
+
+      % Forcing arrows showing which initial vertex forces which neighbors
+      \draw[farr,red!70] (a) to[bend left=15] (c);
+      %\draw[farr,red!70] (a) to[bend right=15] (d);
+      \draw[farr,blue!70] (h) to[bend right=15] (g);
+    }
+
+    % Slide 3: next layer receives weight 1 and inherits forcing color
+    \only<3>{
+      \node[v,initA] (a) at (-2,1) {};
+      %\node[above=2pt of a] {3};
+      \node[v] (b) at (1,1) {};
+      \node[above=2pt of i] {3};
+      %\node[above=2pt of c] {2};
+
+      \node[v,forceA] (c) at (-1,1) {};
+      \node[v,nextA] (d) at (0,1) {};
+      \node[above=2pt of d] {1};
+      \node[v,initB] (i) at (2,1) {};
+      \node[v] (e) at (3,1) {};
+
+      \node[v,nextC] (f) at (4,1) {};
+      \node[v,forceC] (g) at (5,1) {};
+      \node[v,initC] (h) at (6,1) {};
+        %\node[above=2pt of h] {3};
+        \node[above=2pt of f] {1};
+      \draw[thick] (a)--(c)--(d)--(b)--(i)--(e)--(f)--(g)--(h);
+
+      %\draw[farr] (a) to[bend left=15] (c);
+      %\draw[farr] (a) to[bend right=15] (d);
+      %\draw[farr] (b) to[bend right=15] (e);
+
+      \draw[farr,blue!70] (g) to [bend left=15] (f);
+      \draw[farr,red!70] (c) to[bend right=15] (d);
+      %\draw[farr,green!70] (e) to[bend right=15] (h);
+    }
+
+    \node[align=center] at (0,-2.4) {\qquad \qquad A failed $(1,3)$-forcing set};
+  \end{tikzpicture}
+\end{frame}
+
 
 \begin{frame}
   \frametitle{$(k,r)$-zero forcing}
@@ -887,7 +1005,53 @@ v_1\to v_2\to v_3\to v_4\to v_5
   \end{tikzpicture}
 \end{frame}
 
+\begin{frame}{Definitions}
+\begin{itemize}
+    \item Designate $B\subseteq V(G)$
+    \item For each $v \in B$, assign $\wt(v)=r$
+    \item For each $u \not \in B$, $\wt(u)=0$
+\end{itemize}
+\vspace{0.25in}
 
+\textbf{The $(k,r)$-forcing rule:} A vertex $v$ such that $\wt(v)\geq 2$ can force $u\in N_G(v)$ a weight of $\wt(u)=\wt(v)-1$ if $|N_G(v) \cap (V(G) \setminus \{ \text{ filled vertices }\})| \leq k$.
+
+\vspace{0.25in}
+    \begin{definition}
+        A set $B \subseteq V(G)$ is a $(k,r)$-forcing set of $G$ if after repeated application of the $(k,r)$-forcing rule, $\wt(v)\geq 1$ for all $v \in V(G)$.
+    \end{definition}
+\end{frame}
+
+
+\begin{frame}{The $(k,r)$-forcing number}
+\begin{definition}
+    The $(k,r)$-forcing number of $G$ is the minimum cardinality of a $(k,r)$-forcing set, i.e.
+    \[ \Z_{(k,r)}(G) = \min \{ |B| : B\text{ is a } (k,r)\text{-forcing set of } G \}
+    \]
+\end{definition}
+    
+\end{frame}
+
+\begin{frame}{Motivation}
+    \begin{observation}
+    When $k=\Delta(G), \ r=1$:
+        \[\qquad \qquad \Z_{(k,r)}(G) = \gamma(G)\quad \text{  (domination number)}\]\vspace{.05in}
+
+    When $k=1, \ r=\mathrm{diam}(G)$:
+    \[\qquad \qquad \Z_{(k,r)}(G) = \Z(G) \quad \text{  (zero forcing number)}\]
+    \end{observation}
+\vspace{.25in}
+    Also generalizes other domination variants, zero forcing variants.
+\end{frame}
+
+
+\begin{frame}{REUF Plan}
+    \begin{center}
+        \textbf{To start:} Investigate $\Z_{(1,r)}(G)$ \\~\\
+
+        Many subproblems suitable for students
+    \end{center}
+\end{frame}
 
    
     \end{document}
+
